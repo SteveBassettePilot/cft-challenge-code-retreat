@@ -1,0 +1,15 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+  Prefix:
+    Type: String
+    Description: Challenge Team Prefix
+
+Resources:
+  InputQueue:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: sqs-simple.yaml
+      Parameters:
+        Name: "slb-input-queue"
+

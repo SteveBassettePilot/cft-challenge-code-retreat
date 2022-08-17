@@ -26,4 +26,19 @@ aws --region $REGION \
     --stack-name "$PREFIX-deploy"  \
     --parameter-overrides Prefix="$PREFIX"
 
+echo "Packaging Component Infrastructure"
+aws --region $REGION \
+    cloudformation package \
+    --template-file infra/component.yaml \
+    --output-template packaged.yaml \
+    --s3-bucket "$PREFIX-deployment-s3"
+
+echo "Creating Component Infrastructure"
+aws --region $REGION \
+    cloudformation deploy \
+    --template-file packaged.yaml \
+    --stack-name "$PREFIX-challenge"  \
+    --parameter-overrides Prefix="$PREFIX"
+
+
 set +x

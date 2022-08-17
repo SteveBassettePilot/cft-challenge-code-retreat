@@ -1,0 +1,17 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: An SQS object to demonstrate CFT Deployments
+
+Parameters:
+  Name:
+    Type: String
+    Default: "input-queue"
+
+Resources:
+  InputQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: 
+        Ref: Name
+
+
