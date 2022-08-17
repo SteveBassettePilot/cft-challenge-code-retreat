@@ -1,0 +1,15 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Description: An S3 Bucket for the Nested CFT Deployments Challenge
+
+Parameters:
+  Prefix:
+    Type: String
+    Description: Challenge Team Prefix
+
+Resources:
+  Deployment:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: !Join ['-',[!Ref Prefix, "deployment-s3"]]
+
