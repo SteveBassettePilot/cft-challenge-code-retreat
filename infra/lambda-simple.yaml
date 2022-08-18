@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Template for Lambda aws-python-RP-daily-state-lambda.
+
+Parameters:
+  Lisence:
+    Type: String
+    Description: Copyright (c) 2019, J Alexander Inc DBA EquusNox. All rights reserved.
+  LambdaHandlerPath:  
+    Type: String
+    Description: Path of an Lambda Handler. 
+    AllowedPattern: ^.*[^0-9]$
+    ConstraintDescription: Must end with non numberic character
+  LambdaFunctionName:
+    Type: String
+    Description: Lambda Function Name
+  Memorysize:
+    Type: String
+    Description: Lambda Function Memorysize
+  
+Resources:
+  venusLambda:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Description: "CFT Challenge simple lambda function"
+      LambdaFunctionName: venus
+      MemorySize: 128
+      Timeout: 
+      Tags: 
+        - 
+          Key: "Name"
+          Value: "simple test lambda"
