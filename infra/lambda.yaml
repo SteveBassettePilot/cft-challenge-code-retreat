@@ -1,0 +1,8 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: A Lambda to demonstrate CFT Deployments
+
+Resources:
+  S3Bucket:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: Lambda

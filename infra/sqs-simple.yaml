@@ -3,15 +3,23 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: An SQS object to demonstrate CFT Deployments
 
 Parameters:
-  Name:
+  NameInputQueue:
     Type: String
     Default: "input-queue"
+  NameOutputQueue:
+    Type: String
+    Default: "output-queue"
 
 Resources:
   InputQueue:
     Type: AWS::SQS::Queue
     Properties:
       QueueName: 
-        Ref: Name
+        Ref: NameInputQueue
 
+  OutputQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: 
+        Ref: NameOutputQueue
 

@@ -13,3 +13,24 @@ Resources:
       Parameters:
         Name: !Join [ '-', [ !Ref Prefix, 'input-queue' ] ]
 
+  OutputQueue:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: sqs-simple.yaml
+      Parameters:
+        Name: !Join [ '-', [ !Ref Prefix, 'output-queue' ] ]
+
+  S3Bucket:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: s3bucket.yaml
+      Parameters:
+        Name: !Join [ '-', [ !Ref Prefix, 'S3Bucket' ] ]
+
+  lambda:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: lambda.yaml
+      Parameters:
+        Name: !Join [ '-', [ !Ref Prefix, 'lambda' ] ] 
+
