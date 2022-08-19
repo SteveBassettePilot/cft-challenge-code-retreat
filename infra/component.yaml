@@ -27,10 +27,10 @@ Resources:
       Parameters:
         Name: !Join [ '-', [ !Ref Prefix, 'S3Bucket' ] ]
 
-  lambda:
+  AWSLambda:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: lambda.yaml
       Parameters:
-        Name: !Join [ '-', [ !Ref Prefix, 'lambda' ] ] 
+        Name: !Join [ '-', [ !Ref Prefix, 'Lambda' ] ] 
 

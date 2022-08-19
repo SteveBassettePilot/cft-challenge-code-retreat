@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+  Prefix:
+    Type: String
+    Description: Challenge Team Prefix
+Resources:
+  InputQueue:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.us-west-2.amazonaws.com/mars-deployment-s3/fb2046fb31a99b4e888caa1003432414.template
+      Parameters:
+        Name:
+          Fn::Join:
+          - '-'
+          - - Ref: Prefix
+            - input-queue
+  OutputQueue:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.us-west-2.amazonaws.com/mars-deployment-s3/fb2046fb31a99b4e888caa1003432414.template
+      Parameters:
+        Name:
+          Fn::Join:
+          - '-'
+          - - Ref: Prefix
+            - output-queue
+  S3Bucket:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.us-west-2.amazonaws.com/mars-deployment-s3/e6563a7c09b189f9115aa47cde4c5fd7.template
+      Parameters:
+        Name:
+          Fn::Join:
+          - '-'
+          - - Ref: Prefix
+            - S3Bucket
+  lambda:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.us-west-2.amazonaws.com/mars-deployment-s3/38a8b73e1b2015d99a06413ad1696914.template
+      Parameters:
+        Name:
+          Fn::Join:
+          - '-'
+          - - Ref: Prefix
+            - lambda
