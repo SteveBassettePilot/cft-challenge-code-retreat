@@ -7,7 +7,7 @@ Resources:
   InputQueue:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.us-west-2.amazonaws.com/mars-deployment-s3/fb2046fb31a99b4e888caa1003432414.template
+      TemplateURL: https://s3.us-west-2.amazonaws.com/mars-deployment-s3/4e87f9b57cdcea127d6ba9c4137ef8ed.template
       Parameters:
         Name:
           Fn::Join:
@@ -17,7 +17,7 @@ Resources:
   OutputQueue:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.us-west-2.amazonaws.com/mars-deployment-s3/fb2046fb31a99b4e888caa1003432414.template
+      TemplateURL: https://s3.us-west-2.amazonaws.com/mars-deployment-s3/4e87f9b57cdcea127d6ba9c4137ef8ed.template
       Parameters:
         Name:
           Fn::Join:
@@ -34,13 +34,13 @@ Resources:
           - '-'
           - - Ref: Prefix
             - S3Bucket
-  lambda:
+  AWSLambda:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: https://s3.us-west-2.amazonaws.com/mars-deployment-s3/38a8b73e1b2015d99a06413ad1696914.template
+      TemplateURL: https://s3.us-west-2.amazonaws.com/mars-deployment-s3/895a4c0bcf3cad1f2f44a2a30a8e26fe.template
       Parameters:
         Name:
           Fn::Join:
           - '-'
           - - Ref: Prefix
-            - lambda
+            - Lambda
