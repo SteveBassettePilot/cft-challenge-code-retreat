@@ -8,8 +8,28 @@ Parameters:
     Type: String
 
 Resources:
+  DeploymentS3:
+      Type: "AWS::S3::Bucket"
+      Properties:
+        BucketName: !Join ['-',[!Ref Prefix, "deploy-s3"]] 
   Deployment:
-    Type: "AWS::S3::Bucket"
-    Properties:
-      BucketName: !Join ['-',[!Ref Prefix, "deployment-s3"]]
+      Type: AWS::Lambda::Function
+      Properties:
+        FunctionName: !Join ['-',[!Ref Prefix, "deploy-lambda"]]
+        Role: "arn:aws:iam::355120987343:role/lambda-basic-role" 
+        Code:
+          ZipFile: |
+              print('helo lambda!')
+        Runtime: "python3.9"
+        Handler: "pap_web_api.lambda_handler" 
+  DeploymentInputSQS:
+       Type: "AWS::SQS::Queue"
+       Properties:
+          FifoQueue: True
+  DeploymentOutputSQS:
+       Type: "AWS::SQS::Queue"
+
+
+
+
 
