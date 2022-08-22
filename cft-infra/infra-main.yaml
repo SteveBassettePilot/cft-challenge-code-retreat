@@ -1,0 +1,72 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "CloudFormation Template will be the parent template of the stack"
+Parameters:
+  license:
+    Type: String  
+    Description: Copyright (c) 2019, J Alexander Inc DBA EquusNox. All rights reserved.
+  S3DATA:
+    Type: CommaDelimitedList
+    Description: S3 bucket parameters array
+  SQSdata:
+    Type: CommaDelimitedList  
+    Description: SQS data parameter array
+  BucketName:
+    Type: String
+    Description: S3 BucketName in which yaml files exist
+  EnvFolderName:
+    Type: String
+    Description: S3 Bucket Environment Folder Name  
+  PathName:
+    Type: String
+    Description: S3 Bucket PathName for the region
+  LAMBDADATA:
+    Type: CommaDelimitedList
+    Description: Cloud Watch parameters array
+  SecretsData:
+    Type: CommaDelimitedList
+    Description:  secret parameters array
+Resources:
+  PAPEMAILSARCHIVES3: 
+    Type: AWS::CloudFormation::Stack
+    Properties: 
+       TemplateURL: !Join ['', ['https://', !Join ['', [!Ref BucketName,'.s3.',!Join ['', [!Ref PathName,'amazonaws.com/', !Join ['', [!Ref EnvFolderName,'/s3.yaml']]]]]]]]
+       Parameters: 
+        license: !Ref license
+        AccessControl: !Select [0, !Ref S3DATA]
+        S3BucketName:  !Select [1, !Ref S3DATA]
+
+  PAPSQS:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Join ['', ['https://', !Join ['', [!Ref BucketName,'.s3.',!Join ['', [!Ref PathName,'amazonaws.com/', !Join ['', [!Ref EnvFolderName,'/sqs.yaml']]]]]]]]
+      Parameters: 
+        license: !Ref license 
+        QueueName: !Select [0, !Ref SQSdata]
+        MessageRetentionPeriod: !Select [1, !Ref SQSdata]
+        DelaySeconds:  !Select [2, !Ref SQSdata]
+        VisibilityTimeout: !Select [3, !Ref SQSdata]
+        MaximumMessageSize: !Select [4, !Ref SQSdata]
+        FifoQueue: !Select [5, !Ref SQSdata]
+        ContentBasedDeduplication: !Select [6, !Ref SQSdata]
+
+  HelloLambdaFunction:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Join ['', ['https://', !Join ['', [!Ref BucketName,'.s3.',!Join ['', [!Ref PathName,'amazonaws.com/', !Join ['', [!Ref EnvFolderName,'/Lambda.yaml']]]]]]]]
+      Parameters:
+        license: !Ref license
+        LambdaHandlerPath: !Select [0, !Ref LAMBDADATA]
+        LambdaFunctionName: !Select [1, !Ref LAMBDADATA]
+        Runtime: !Select [2, !Ref LAMBDADATA]
+        Memorysize: !Select [3, !Ref LAMBDADATA]
+        Timeout: !Select [4, !Ref LAMBDADATA]
+        LambdaRole: !Select [5, !Ref LAMBDADATA]
+      
+  AtlanticSecrets:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: !Join ['', ['https://', !Join ['', [!Ref BucketName,'.s3.',!Join ['', [!Ref PathName,'amazonaws.com/', !Join ['', [!Ref EnvFolderName,'/secretsmanager.yaml']]]]]]]]
+      Parameters:
+        license: !Ref license
+        SecretName: !Select [0, !Ref SecretsData]
+  

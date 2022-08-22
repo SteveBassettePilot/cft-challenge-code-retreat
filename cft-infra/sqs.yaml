@@ -1,0 +1,41 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "Devloping a cft for pap sqs"
+Parameters:
+  license:
+    Type: String
+    Description: Copyright (c) 2019, J Alexander Inc DBA EquusNox. All rights reserved.
+  DelaySeconds:
+    Type: String
+    Description: The time in seconds thatthe delivry of all message in the Queue is delayed.
+  MessageRetentionPeriod:
+    Description: the number of seconds aws SQS retain that message.
+    Type: String
+  QueueName:
+    Type: String
+    Description: the name of the Queue.
+  VisibilityTimeout:
+    Type: String
+    Description: The length of time during which a message will be unavailable after a message is delivered from the queue.
+  MaximumMessageSize:
+    Type: String
+    Description: the length of the message. 
+  FifoQueue: 
+    Type: String
+    Description: set to true if you want queuetype as FIFO
+  ContentBasedDeduplication: 
+    Type: String
+    Description: set to true if you want queuetype as FIFO
+
+Resources:
+  PAPQueue: 
+    Type: AWS::SQS::Queue
+    Properties: 
+        QueueName: !Ref QueueName
+        MessageRetentionPeriod: !Ref MessageRetentionPeriod
+        DelaySeconds:  !Ref DelaySeconds
+        VisibilityTimeout: !Ref VisibilityTimeout
+        MaximumMessageSize: !Ref MaximumMessageSize
+        FifoQueue: !Ref FifoQueue
+        ContentBasedDeduplication: !Ref ContentBasedDeduplication
+      
+ 

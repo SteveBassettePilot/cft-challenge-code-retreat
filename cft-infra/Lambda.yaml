@@ -1,0 +1,42 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation Template will creating a pap-push-to-pfj Lambda Function.
+
+Parameters:
+  license:
+    Type: String
+    Description: Copyright (c) 2019, J Alexander Inc DBA EquusNox. All rights reserved.
+  LambdaHandlerPath:  
+    Type: String
+    Description: Path of pap-Web-api Lambda Handler. 
+  LambdaFunctionName:
+    Type: String
+    Description: Lambda Function Name
+  Runtime:
+    Type: String
+    Description: Runtime Environment
+  Memorysize:
+    Type: String
+    Description: Lambda Function Memorysize
+  Timeout:
+    Type: String
+    Description: Lambda Function Timeout
+  LambdaRole:
+    Description: Role for Lambda
+    Type: String
+
+Resources:
+  HelloLambdaFunction:
+    Type: "AWS::Lambda::Function"
+    Properties:
+      Description: "Lambda Function for ml engine"
+      FunctionName: !Ref LambdaFunctionName  
+      Role: !Ref LambdaRole 
+      Runtime: !Ref Runtime 
+      Handler: !Ref LambdaHandlerPath
+      MemorySize: !Ref Memorysize 
+      Timeout: !Ref Timeout 
+      Code:
+        ZipFile: |
+          def my_handler(event, context):
+            message = 'Hello Lambda World!'
+            return message

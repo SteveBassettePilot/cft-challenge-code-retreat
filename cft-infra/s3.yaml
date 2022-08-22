@@ -1,0 +1,25 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: "Devloping a cft for pap s3"
+Parameters:
+  license:
+    Type: String
+    Description: Copyright (c) 2019, J Alexander Inc DBA EquusNox. All rights reserved.
+  S3BucketName:
+    Type: String
+    Description: name of the s3 bucket.
+  AccessControl:
+    Type: String
+    Description: access control for s3 bucket.
+
+Resources:
+  PAPEMAILSARCHIVES3:
+    Type: AWS::S3::Bucket  
+    DeletionPolicy: Delete
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - ServerSideEncryptionByDefault: {SSEAlgorithm: AES256}
+      BucketName: !Ref S3BucketName  
+      AccessControl: !Ref AccessControl 
+      VersioningConfiguration: 
+        Status: Enabled     

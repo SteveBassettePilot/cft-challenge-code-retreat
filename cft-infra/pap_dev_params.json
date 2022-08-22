@@ -1,0 +1,33 @@
+[{
+    "ParameterKey": "license",
+    "ParameterValue": "Copyright (c) 2019, J Alexander Inc DBA EquusNox. All rights reserved."
+},
+{
+    "ParameterKey": "S3DATA",
+    "ParameterValue": "Private,test-atlantic-bucket"
+},
+{
+    "ParameterKey": "BucketName",
+    "ParameterValue": "test-earth-bucket"
+},
+{
+    "ParameterKey": "EnvFolderName",
+    "ParameterValue": "earth/earth-dev-infra-yaml-files"
+},
+{
+    "ParameterKey": "PathName",
+    "ParameterValue": "us-west-2."
+},
+{
+    "ParameterKey": "SQSdata",
+    "ParameterValue": "test-atlantic-sqs.fifo,345600,0,60,262144,true,true"
+},
+{
+    "ParameterKey": "LAMBDADATA",
+    "ParameterValue": "index.my_handler,test-atlantic-sls,python3.9,128,900,arn:aws:iam::355120987343:role/lambda-basic-role"
+},
+{
+    "ParameterKey": "SecretsData",
+    "ParameterValue": "Atlantic-secrets"
+}
+]
